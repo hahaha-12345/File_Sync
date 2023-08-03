@@ -1,0 +1,36 @@
+!*velocity filename*!
+/mnt/hgfs/E/data/model_data/2D/福建地铁项目/model/P_wave_velocity_nx101_nz71.dat
+!*NO.1 shot record filename(tmp)*!
+/mnt/hgfs/E/data/model_data/2D/福建地铁项目/data/iso/Record_pressure_temp
+!*NO.2 shot record filename(all)*!
+/mnt/hgfs/E/data/model_data/2D/福建地铁项目/data/iso/Record_pressure
+!*NO.3 shot record filename(all)*!
+/mnt/hgfs/E/data/model_data/2D/福建地铁项目/data/iso/Record_acceleration_temp
+!*NO.4 shot record filename(all)*!
+/mnt/hgfs/E/data/model_data/2D/福建地铁项目/data/iso/Record_acceleration
+!*nshot(samples)*!
+  1
+!*offset_min,offset_max(dm)*!
+ -4000.0    4000.0
+!*sx0,sz0,rz0(dm)*!
+400.0  0.0  0.0
+!*dsx(dm)*!
+80.0
+!*nx_v,nz_v(samples)*!
+101   71
+!*dx_v,dz_v(dm)*!
+10.0  10.0
+!*nt(samples)*!
+2000
+!*dt(s)*!
+0.00025
+!*f0(Hz)*!
+80.0
+!*pml_thick x left and right direction(dm)*!
+3000.0		3000.0
+!*pml_thick z up and down direction(dm)*!
+3000.0	    3000.0
+!*order_2nd*!
+20
+!*order_1st*!
+19
