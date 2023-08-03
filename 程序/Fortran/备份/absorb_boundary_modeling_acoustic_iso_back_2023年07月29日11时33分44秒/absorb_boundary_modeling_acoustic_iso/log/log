@@ -1,0 +1,37 @@
+ nx_bound_l, nx_bound_r, nz_bound_u, nz_bound_d
+          30          30          30          30
+ ========== 2D Iso acoustic modeling begin ==========
+ currshot_range         201
+ currshot_range_all         261
+ nz_v=         301 nz=         361
+ currshot_range, currshot_range_all, currshot_nsx, nz, nsz0
+         201         261         130         361           1
+ decay =           50
+ shot is   1  myid=           0 nt=        2000 it=           1
+ shot is   1  myid=           0 nt=        2000 it=         101
+ shot is   1  myid=           0 nt=        2000 it=         201
+ shot is   1  myid=           0 nt=        2000 it=         301
+ shot is   1  myid=           0 nt=        2000 it=         401
+ shot is   1  myid=           0 nt=        2000 it=         501
+ shot is   1  myid=           0 nt=        2000 it=         601
+ shot is   1  myid=           0 nt=        2000 it=         701
+ shot is   1  myid=           0 nt=        2000 it=         801
+ shot is   1  myid=           0 nt=        2000 it=         901
+ shot is   1  myid=           0 nt=        2000 it=        1001
+ shot is   1  myid=           0 nt=        2000 it=        1101
+ shot is   1  myid=           0 nt=        2000 it=        1201
+ shot is   1  myid=           0 nt=        2000 it=        1301
+ shot is   1  myid=           0 nt=        2000 it=        1401
+ shot is   1  myid=           0 nt=        2000 it=        1501
+ shot is   1  myid=           0 nt=        2000 it=        1601
+ shot is   1  myid=           0 nt=        2000 it=        1701
+ shot is   1  myid=           0 nt=        2000 it=        1801
+ shot is   1  myid=           0 nt=        2000 it=        1901
+ shot  1  extrapolation finished,and now is writing disk
+ shot  1  is done
+ Now merging shot_record files begin
+  /mnt/hgfs/E/data/model_data/2D/福建地铁项目/data/iso/Record_11.su
+  is bening merged
+  /mnt/hgfs/E/data/model_data/2D/福建地铁项目/data/iso/Record_31.su
+  is bening merged
+ ========== 2D Iso acoustic modeling end ==========
