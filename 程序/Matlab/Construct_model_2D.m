@@ -3,10 +3,11 @@ tic;
 
 %%
 close all;
-clear all;
+%clear all;
+clear;
 clc;
 
-addpath(genpath('D:\同步空间\程序\博士后程序\Matlab\SeisLab_3.02'));
+addpath(genpath('/mnt/work/百度网盘下载/博士后/程序/Matlab/SeisLab_3.02'));
 
 %% 基本参数
 nx = 101; nz = 71;
@@ -22,8 +23,15 @@ for ix = (nx-1)/2-2 : (nx-1)/2+4
     end
 end
 
-min_model = min(min(model));
-max_model = max(max(model));
+n_value = 10;
+
+min_value = min(min(model));
+max_value = max(max(model));
+d_value = (max_value - min_value) / n_value;
+
+cticks_min_value = min_value / 10.0;
+cticks_max_value = max_value / 10.0;
+cticks_d_value = (cticks_max_value - cticks_min_value) / n_value;
 
 %% 画图展示
 
@@ -41,9 +49,9 @@ width = 415; height = 280;
 % 在窗口中创建一个子图
 ax = subplot(1, 1, 1);
 
-% 设置图的字体为 Calibri
-set(groot, 'DefaultAxesFontName', 'Calibri')
-set(groot, 'DefaultTextFontName', 'Calibri')
+% 设置图的字体为 Times New Roman
+set(groot, 'DefaultAxesFontName', 'Times New Roman')
+set(groot, 'DefaultTextFontName', 'Times New Roman')
 
 % s_cplot(model);
 imagesc(model);
@@ -61,29 +69,38 @@ set(gca, 'box', 'off',...
 axis equal;
 % 设置 x 坐标轴刻度
 xlim([1 nx]);
-xticks(1:10:nx);
-xticklabels(0:10*dx:(nx-1)*dx);
-xlabel('Position (dm)');
+dx_ticks = 10;
+xticks(1:dx:nx);
+xticklabels(0:dx_ticks:(nx-1)*dx);
+xlabel('Position (m)');
 % 设置 y 坐标轴刻度
 ylim([1 nz]);
-yticks(1:10:nz);
-yticklabels(0:10*dz:(nx-1)*dz);
-ylabel('Depth (dm)');
+dz_ticks = 10;
+yticks(1:dz:nz);
+yticklabels(0:dz_ticks:(nx-1)*dz);
+ylabel('Depth (m)');
 
 % 调整刻度数字与刻度线之间的间距
 ax.XRuler.TickLabelGapMultiplier = 0.0;
 ax.YRuler.TickLabelGapMultiplier = 0.0;
 
-title('P Wave Velocity', 'FontWeight', 'bold');
+% title('P Wave Velocity', 'FontWeight', 'bold');
 % 设置标题距离上框线的距离为合适位置
 title_position = get(gca, 'Title').Position;
-title_position(2) = line_width; % 设置合适位置
-set(gca, 'Title', title('P Wave Velocity', 'Position', title_position, 'FontWeight', 'bold'));
+title_position(2) = line_width - 0.9; % 设置合适位置
+% set(gca, 'Title', title('P Wave Velocity', 'Position', title_position, 'FontWeight', 'bold'));
 
 % 设置 colorbar
-cb = colorbar('Limits',[min_model  max_model]);
+% cb = colorbar('Limits', [min_value  max_value]);
+cb = colorbar();
+colormap cool;
+% colormap(flipud(cool)); % 把图填充的颜色倒转
+set(cb, 'ylim', [min_value  max_value]);
+set(cb, 'XTick', [min_value : d_value : max_value]);
+% modify values if you preffer
+set(cb,'XTickLabel',strsplit(num2str([cticks_min_value : cticks_d_value : cticks_max_value])));
 % set(get(c1,'title'),'string','m/s'); % 备注在 colorbar 的上方
-set(get(cb,'ylabel'),'string','dm/s'); % 备注在 colorbar 的右侧面
+set(get(cb,'ylabel'),'string','m/s'); % 备注在 colorbar 的右侧面
 % 设置 colorbar 的刻度线朝外
 cb.TickDirection = 'out';
 % 设置 colorbar 的边框线宽度
@@ -140,8 +157,8 @@ fig.Position = [xpos, ypos, width, height]; % 设置窗口的位置和大小 [xp
 dpi = 300; % 设置 DPI（每英寸点数）
 file_format = 'png';
 fn_save = 'P_wave_velocity';
-fn_image_output = ['D:\同步空间\数据\地球物理学\博士后\福建地铁项目\合成数据\',fn_save,'_nx',num2str(nx),'_nz',num2str(nz),'_dpi',num2str(dpi),'.',file_format];
-% fn_image_output = ['D:\同步空间\数据\地球物理学\博士后\福建地铁项目\合成数据\Figure\',fn_save,'_nx',num2str(nx),'_nz',num2str(nz),'_dpi',num2str(dpi),'.',file_format];
+fn_image_output = ['/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/model/',fn_save,'_nx',num2str(nx),'_nz',num2str(nz),'_dpi',num2str(dpi),'.',file_format];
+% fn_image_output = ['/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/model/Figure',fn_save,'_nx',num2str(nx),'_nz',num2str(nz),'_dpi',num2str(dpi),'.',file_format];
 
 % 如果文件已经存在，则先删除现有文件
 % if exist(fn_image_output, 'file')
@@ -151,8 +168,8 @@ fn_image_output = ['D:\同步空间\数据\地球物理学\博士后\福建地�
 print(fn_image_output,['-r',num2str(dpi)],['-d',file_format]);
 
 % 将生成的图片移动到目标文件夹
-sourceFolder = 'D:\同步空间\数据\地球物理学\博士后\福建地铁项目\合成数据';   % 源文件夹路径
-destinationFolder = 'D:\同步空间\数据\地球物理学\博士后\福建地铁项目\合成数据\Figure';   % 目标文件夹路径
+sourceFolder = '/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/model';   % 源文件夹路径
+destinationFolder = '/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/model/Figure';   % 目标文件夹路径
 fileName = [fn_save,'_nx',num2str(nx),'_nz',num2str(nz),'_dpi',num2str(dpi),'.',file_format];   % 文件名及扩展名
 % 构建源文件的完整路径
 sourceFile = fullfile(sourceFolder, fileName);
@@ -160,7 +177,7 @@ sourceFile = fullfile(sourceFolder, fileName);
 movefile(sourceFile, destinationFolder);
 
 %% 输出模型数据
-fn_output = ['D:\同步空间\数据\地球物理学\博士后\福建地铁项目\合成数据\',fn_save,'_nx',num2str(nx),'_nz',num2str(nz),'.dat'];
+fn_output = ['/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/model/',fn_save,'_nx',num2str(nx),'_nz',num2str(nz),'.dat'];
 fp = fopen(fn_output,'w+');
 for ix = 1 : nx
     fwrite(fp,model(:,ix),'float32');
