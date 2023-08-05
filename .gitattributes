@@ -1,0 +1,5 @@
+程序 filter=lfs diff=lfs merge=lfs -text
+README.md filter=lfs diff=lfs merge=lfs -text
+数据 filter=lfs diff=lfs merge=lfs -text
+汇报 filter=lfs diff=lfs merge=lfs -text
+/2D/model/Figure/P_wave_snapshots_nx101_nz71_dpi300.gif filter=lfs diff=lfs merge=lfs -text
