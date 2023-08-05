@@ -80,10 +80,13 @@
         integer::nwt, decay
 		character(len=256)::currt, currtsnap
 		character(len=256)::snap_fn1 = &
-		'/mnt/hgfs/E/data/model_data/2D/福建地铁项目/snapshot/1/iso_P_wave_snapshot_'
-		character(len=256)::snap_fn2 = '/mnt/hgfs/E/data/model_data/2D/福建地铁项目/snapshot/2/iso_'
-		character(len=256)::snap_fn3 = '/mnt/hgfs/E/data/model_data/2D/福建地铁项目/snapshot/3/iso_'
-		character(len=256)::snap_fn4 = '/mnt/hgfs/E/data/model_data/2D/福建地铁项目/snapshot/4/iso_'
+		'/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/1/iso_P_wave_snapshot_2_times_'
+		character(len=256)::snap_fn2 = &
+        '/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/2/iso_'
+		character(len=256)::snap_fn3 = &
+        '/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/3/iso_'
+		character(len=256)::snap_fn4 = &
+        '/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/4/iso_'
 
         integer::counter=1
 
