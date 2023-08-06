@@ -114,7 +114,7 @@
             call merge_shot_files(nshot, shot_fn1, shot_fn2,    &
                                   shot_fn3, shot_fn4,           &
                                   currshot_xmin, currshot_xmax, &
-                                  nt                            &
+                                  nt, nz_v                      &
                                  )
             write(*,*) '========== 2D Iso acoustic modeling end =========='
         endif
