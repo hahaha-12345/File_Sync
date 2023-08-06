@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 time: cannot run mpirun: No such file or directory
 Command exited with non-zero status 127
 0.00user 0.00system 0:00.00elapsed 100%CPU (0avgtext+0avgdata 1004maxresident)k
 0inputs+8outputs (0major+43minor)pagefaults 0swaps
+=======
+102.12user 7.15system 2:29.69elapsed 72%CPU (0avgtext+0avgdata 78888maxresident)k
+5936inputs+0outputs (11major+19572minor)pagefaults 0swaps
+>>>>>>> 9ca15b0e006de59b460e61e5199f328cadeaadd0

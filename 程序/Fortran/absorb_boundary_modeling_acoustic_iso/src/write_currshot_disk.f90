@@ -1,7 +1,7 @@
     subroutine write_currshot_disk(record, shot_fn1, record_acc, shot_fn3,   &
                                    currshot_name, currshot_num,              &
                                    nsx, nsz0, currshot_range, currshot_xmin, &
-                                   currshot_xmax, nt, dx_v, dz_v, dt         &
+                                   currshot_xmax, nt, dx_v, dz_v, dt, nz_v   &
                                   )
 
         use module_header
@@ -10,9 +10,11 @@
         !Dummy variables
         integer::currshot_num, nsx, nsz0,       &
                  currshot_range, currshot_xmin, &
-                 currshot_xmax, nt
-        real::record(nt, currshot_range)
-        real::record_acc(nt, currshot_range)
+                 currshot_xmax, nt, nz_v
+!        real::record(nt, currshot_range)
+!        real::record_acc(nt, currshot_range)
+        real::record(nt, nz_v)
+        real::record_acc(nt, nz_v)
         character(len=256)::shot_fn1
         character(len=256)::shot_fn3
         character(len=256)::currshot_name
@@ -45,7 +47,24 @@
 !        su_head%d2   = dz_v
 
 
-		!Pressure
+!		!Pressure
+!        open(unit=8, file=trim(adjustl(shot_fn1))//trim(adjustl(currshot_name))//'.dat', &
+!             form='unformatted', access='direct', status='replace', recl=nt)
+!
+!
+!		!Acceleration
+!        open(unit=9, file=trim(adjustl(shot_fn3))//trim(adjustl(currshot_name))//'.dat', &
+!             form='unformatted', access='direct', status='replace', recl=nt)
+!
+!
+!        do i = 1, nz_v
+!
+!            write(8,rec=i)  (record(k,i),k=1,nt)
+!            write(9,rec=i)  (record_acc(k,i),k=1,nt)
+!
+!        enddo
+
+        !Pressure
         open(unit=8, file=trim(adjustl(shot_fn1))//trim(adjustl(currshot_name))//'.su', &
              form='unformatted', access='direct', status='replace', recl=nt+60)
 
@@ -55,15 +74,25 @@
              form='unformatted', access='direct', status='replace', recl=nt+60)
 
 
-        do i = 1, currshot_range
+        do i = 1, nz_v
 
-            su_head%gx     = (currshot_xmin-1+i-1)*dx_v
+            su_head%gy     = i*dz_v
             su_head%offset = su_head%gx-su_head%sx
 
             write(8,rec=i) su_head, (record(k,i),k=1,nt)
             write(9,rec=i) su_head, (record_acc(k,i),k=1,nt)
 
         enddo
+
+!        do i = 1, currshot_range
+!
+!            su_head%gx     = (currshot_xmin-1+i-1)*dx_v
+!            su_head%offset = su_head%gx-su_head%sx
+!
+!            write(8,rec=i) su_head, (record(k,i),k=1,nt)
+!            write(9,rec=i) su_head, (record_acc(k,i),k=1,nt)
+!
+!        enddo
 
         close(unit=8)
         close(unit=9)

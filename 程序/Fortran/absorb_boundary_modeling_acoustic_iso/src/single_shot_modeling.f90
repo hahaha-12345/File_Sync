@@ -14,7 +14,7 @@
 
         !Dummy variables
         real::vz(nx_v, nz_v)
-        integer::nsx, nsz0, nrz0
+        integer::nsx, nsz0, nrz0, nrx0
         integer::currshot_xmin, currshot_xmax
         integer::nx_v, nz_v, nt,         &
                  nx_bound_l, nx_bound_r, &
@@ -80,13 +80,13 @@
         integer::nwt, decay
 		character(len=256)::currt, currtsnap
 		character(len=256)::snap_fn1 = &
-		'/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/1/iso_P_wave_snapshot_2_times_'
+		'/mnt/hgfs/E/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/1/iso_P_wave_snapshot_2_times_'
 		character(len=256)::snap_fn2 = &
-        '/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/2/iso_'
+        '/mnt/hgfs/E/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/2/iso_'
 		character(len=256)::snap_fn3 = &
-        '/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/3/iso_'
+        '/mnt/hgfs/E/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/3/iso_'
 		character(len=256)::snap_fn4 = &
-        '/mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/4/iso_'
+        '/mnt/hgfs/E/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/snapshot/4/iso_'
 
         integer::counter=1
 
@@ -108,8 +108,11 @@
         allocate(u2(-(order_2nd/2)+1:currshot_range_all+(order_2nd/2), -(order_2nd/2)+1:nz+(order_2nd/2)), STAT=err)
         allocate(u2_snapshot(1:nx_v, 1:nz_v), STAT=err)
 
-        allocate(record(nt, currshot_range), STAT=err)
-        allocate(record_acc(nt, currshot_range), STAT=err)
+!        allocate(record(nt, currshot_range), STAT=err)
+!        allocate(record_acc(nt, currshot_range), STAT=err)
+        allocate(record(nt, nz_v), STAT=err)
+        allocate(record_acc(nt, nz_v), STAT=err)
+
         allocate(coe_2nd_10(order_2nd / 2), STAT=err) !表示 10 阶和更高阶的有限差分
         allocate(coe_2nd_8(4), STAT=err)
         allocate(coe_2nd_6(3), STAT=err)
@@ -271,14 +274,18 @@
 				    enddo
 
                     !地表接收
-                    record(iit, 1:currshot_range) = &
-                        u1(nx_bound_l+1:currshot_range+nx_bound_l, nrz0+nz_bound_u)
+!                    record(iit, 1:currshot_range) = &
+!                        u1(nx_bound_l+1:currshot_range+nx_bound_l, nrz0+nz_bound_u)
+                    !井中接收
+                    nrx0 = 30
+                    record(iit, 1:nz_v) = &
+                        u1(nx_bound_l+nrx0+(abs(int(offset_min/dx))-nsx), nrz0+nz_bound_u : nrz0+nz_bound_u+nz_v)
 
-				    call get_acc_record(u1, record_acc, order_1st, coe_1st,   &
-					    				currshot_range, currshot_range_all,   &
-                                        nz_v, nz,                             &
-							    		nx_bound_l,nz_bound_u,nrz0,nt,iit,dz, &
-                                        order_2nd                             &
+				    call get_acc_record(u1, record_acc, order_1st, coe_1st,           &
+					    				currshot_range, currshot_range_all,           &
+                                        nz_v, nz,                                     &
+							    		nx_bound_l,nz_bound_u,nrz0,nrx0,nt,iit,dz,dx, &
+                                        order_2nd,nsx,offset_min                      &
                                        )
 
                 endif
@@ -325,14 +332,17 @@
 					    rig(iz, iit) = u2(nx_bound_l+currshot_range, nrz0+nz_bound_u+iz)
 				    enddo
 
-				    record(iit,1:currshot_range) = &
-                        u2(nx_bound_l+1:currshot_range+nx_bound_l, nrz0+nz_bound_u)
+!				    record(iit,1:currshot_range) = &
+!                        u2(nx_bound_l+1:currshot_range+nx_bound_l, nrz0+nz_bound_u)
+				    nrx0 = 30
+                    record(iit,1:nz_v) = &
+                        u2(nx_bound_l+nrx0+(abs(int(offset_min/dx))-nsx), nrz0+nz_bound_u : nrz0+nz_bound_u+nz_v)
 
-				    call get_acc_record(u2, record_acc, order_1st, coe_1st, &
-					    			    currshot_range, currshot_range_all, &
-                                        nz_v, nz,                           &
-							    		nx_bound_l, nz_bound_u, nrz0, nt,   &
-                                        iit, dz, order_2nd                  &
+				    call get_acc_record(u2, record_acc, order_1st, coe_1st,     &
+					    			    currshot_range, currshot_range_all,     &
+                                        nz_v, nz,                               &
+							    		nx_bound_l, nz_bound_u, nrz0, nrx0, nt, &
+                                        iit, dz, dx, order_2nd, nsx, offset_min &
                                        )
 			    endif
 
@@ -379,7 +389,7 @@
         call write_currshot_disk(record,shot_fn1, record_acc, shot_fn3,    &
 								 currshot_name, currshot_num,              &
                                  nsx, nsz0, currshot_range, currshot_xmin, &
-                                 currshot_xmax, nt, dx, dz, dt             &
+                                 currshot_xmax, nt, dx, dz, dt, nz_v       &
                                 )
 
         write(*,*) 'shot  ', trim(adjustl(currshot_name)), '  is done'

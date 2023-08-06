@@ -1,4 +1,5 @@
 !*velocity filename*!
+<<<<<<< HEAD
 /mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/model/P_wave_velocity_nx101_nz71.dat
 !*NO.1 shot record filename(tmp)*!
 /mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/data/iso/Record_pressure_temp
@@ -8,6 +9,17 @@
 /mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/data/iso/Record_acceleration_temp
 !*NO.4 shot record filename(all)*!
 /mnt/work/百度网盘下载/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/data/iso/Record_acceleration
+=======
+/mnt/hgfs/E/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/model/P_wave_velocity_nx101_nz71.dat
+!*NO.1 shot record filename(tmp)*!
+/mnt/hgfs/E/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/data/iso/Record_pressure_vertical_temp
+!*NO.2 shot record filename(all)*!
+/mnt/hgfs/E/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/data/iso/Record_pressure_vertical
+!*NO.3 shot record filename(all)*!
+/mnt/hgfs/E/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/data/iso/Record_acceleration_vertical_temp
+!*NO.4 shot record filename(all)*!
+/mnt/hgfs/E/博士后/数据/福州地铁2号线延伸段下穿三江口大桥北立交桥梁安全监测初步方案/synthetic_data/2D/data/iso/Record_acceleration_vertical
+>>>>>>> 9ca15b0e006de59b460e61e5199f328cadeaadd0
 !*nshot(samples)*!
   1
 !*offset_min,offset_max(dm)*!
